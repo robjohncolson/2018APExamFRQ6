@@ -291,11 +291,13 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             const isCapstone = topic.isCapstone === true;
             
             // Different styling based on topic type and completion status
-            let cardClasses = 'p-4 rounded-lg shadow-md topic-card ';
+            let cardClasses = 'p-4 rounded-lg shadow-md topic-card mb-2 ';
             if (topic.completed) {
                 cardClasses += 'bg-green-50 border border-green-200';
             } else if (isCapstone) {
                 cardClasses += 'bg-yellow-50 border border-yellow-200';
+            } else if (isNextTopic || topic.current) {
+                cardClasses += 'bg-blue-50 border border-blue-200';
             } else {
                 cardClasses += 'bg-white';
             }
@@ -307,24 +309,30 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             let statusIcon = '';
             if (topic.completed) {
                 statusIcon = '<span class="text-green-500 mr-2">✓</span>';
-            } else if (isNextTopic) {
+            } else if (isNextTopic || topic.current) {
                 statusIcon = '<span class="text-blue-500 mr-2">→</span>';
             } else if (isCapstone) {
                 statusIcon = '<span class="text-yellow-500 mr-2">🏆</span>';
+            } else {
+                statusIcon = '<span class="text-gray-300 mr-2">○</span>';
             }
             
             // Status badge text and style
             let badgeClass = topic.completed 
                 ? 'bg-green-100 text-green-800' 
                 : isCapstone 
-                  ? 'bg-yellow-100 text-yellow-800' 
-                  : 'bg-blue-100 text-blue-800';
+                  ? 'bg-yellow-100 text-yellow-800'
+                  : isNextTopic || topic.current
+                  ? 'bg-blue-100 text-blue-800'
+                  : 'bg-gray-100 text-gray-800';
             
             let badgeText = topic.completed 
                 ? 'Completed' 
                 : isCapstone 
-                  ? 'Capstone' 
-                  : 'Not Started';
+                  ? 'Final Challenge'
+                  : isNextTopic || topic.current
+                  ? 'Current Focus'
+                  : 'Upcoming';
             
             card.innerHTML = `
                 <div class="flex justify-between items-start mb-3">
@@ -337,26 +345,25 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 <div class="flex flex-col gap-2">
                     <a href="${topic.questionPdf}" target="_blank" class="flex items-center text-blue-600 hover:text-blue-800">
                         <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                         </svg>
-                        View Questions
+                        Download Questions PDF (for Grok)
                     </a>
                     <a href="${topic.answersPdf}" target="_blank" class="flex items-center text-blue-600 hover:text-blue-800">
                         <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                         </svg>
-                        View Answers
+                        Download Answers PDF (for Grok)
                     </a>
-                    ${isNextTopic ? `
-                    <button 
-                        class="mt-2 px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
-                        onclick="markTopicAsStarted('${topic.id}')"
-                    >
-                        Start This Topic
-                    </button>
-                    ` : 
-                    !topic.completed ? `
+                    ${isNextTopic || topic.current ? `
+                    <div class="mt-2 p-2 bg-blue-100 text-blue-800 text-sm rounded flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>This is your current focus topic</span>
+                    </div>
+                    ` : ''}
+                    ${!topic.completed ? `
                     <button 
                         class="mt-2 px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
                         onclick="markTopicAsCompleted('${topic.id}')"
@@ -365,8 +372,8 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                     </button>
                     ` : ''}
                     ${isCapstone && !topic.completed ? `
-                    <div class="mt-2 p-2 bg-yellow-100 text-yellow-800 text-xs rounded">
-                        Complete all previous topics before attempting this capstone challenge!
+                    <div class="mt-2 p-2 bg-yellow-100 text-yellow-800 text-sm rounded">
+                        <strong>Capstone Challenge!</strong> Complete all previous topics before attempting this final challenge.
                     </div>
                     ` : ''}
                 </div>
@@ -466,9 +473,9 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             // Confirm reset
             if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
                 // Reset all topics to not completed
-                pdfFiles.forEach(topic => {
+                pdfFiles.forEach((topic, index) => {
                     topic.completed = false;
-                    topic.current = false;
+                    topic.current = index === 0; // Set first topic as current
                 });
                 
                 // Save to local storage
@@ -479,6 +486,12 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 
                 // Hide completion message
                 document.getElementById('all-completed-container').classList.add('hidden');
+                
+                // Scroll to the first topic
+                const firstCard = document.getElementById(`topic-card-${pdfFiles[0].id}`);
+                if (firstCard) {
+                    firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
             }
         }
         
@@ -487,12 +500,23 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             const container = document.getElementById('topic-cards-container');
             container.innerHTML = '';
             
-            pdfFiles.forEach(topic => {
-                const card = createTopicCard(topic);
+            // Find the first incomplete topic
+            const nextIncompleteIndex = pdfFiles.findIndex(topic => !topic.completed);
+            
+            // Mark it as current unless all topics are completed
+            if (nextIncompleteIndex >= 0) {
+                pdfFiles.forEach((topic, index) => {
+                    topic.current = index === nextIncompleteIndex;
+                });
+            }
+            
+            // Populate the cards in the original order (sequential)
+            pdfFiles.forEach((topic, index) => {
+                const isNext = index === nextIncompleteIndex;
+                const card = createTopicCard(topic, isNext);
                 container.appendChild(card);
             });
             
-            updateNextTopic();
             updateProgressBar();
             populateTopicSelect();
             checkAllTopicsCompleted();
@@ -532,34 +556,32 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             const topic = pdfFiles.find(t => t.id === topicId);
             if (topic) {
                 topic.completed = true;
+                topic.current = false;
+                
+                // Automatically mark the next topic as current
+                const currentIndex = pdfFiles.findIndex(t => t.id === topicId);
+                if (currentIndex >= 0 && currentIndex < pdfFiles.length - 1) {
+                    const nextTopic = pdfFiles[currentIndex + 1];
+                    if (nextTopic) {
+                        nextTopic.current = true;
+                    }
+                }
                 
                 // Update local storage to persist completion status
                 saveTopicProgress();
                 
                 // Refresh the UI
                 populateTopicCards();
-            }
-        }
-        
-        // Function to mark a topic as started (for next topic suggestions)
-        function markTopicAsStarted(topicId) {
-            // Set all topics as not current
-            pdfFiles.forEach(t => {
-                if (t.id === topicId) {
-                    t.current = true;
-                } else {
-                    t.current = false;
+                
+                // If a topic was completed, scroll to the next one
+                if (currentIndex < pdfFiles.length - 1) {
+                    const nextCard = document.getElementById(`topic-card-${pdfFiles[currentIndex + 1].id}`);
+                    if (nextCard) {
+                        setTimeout(() => {
+                            nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100);
+                    }
                 }
-            });
-            
-            // Save and refresh UI
-            saveTopicProgress();
-            populateTopicCards();
-            
-            // Scroll to the topic card
-            const card = document.getElementById(`topic-card-${topicId}`);
-            if (card) {
-                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
         
@@ -574,21 +596,13 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 return;
             }
             
-            // Get all non-capstone topics first
-            const regularTopics = pdfFiles.filter(topic => !topic.isCapstone);
+            // Find the first incomplete topic
+            const nextIncompleteIndex = pdfFiles.findIndex(topic => !topic.completed);
             
-            // Find the first incomplete regular topic
-            let nextTopic = regularTopics.find(topic => !topic.completed);
-            
-            // If all regular topics are completed, suggest the capstone
-            if (!nextTopic) {
-                nextTopic = pdfFiles.find(topic => topic.isCapstone && !topic.completed);
-            }
-            
-            if (nextTopic) {
+            if (nextIncompleteIndex >= 0) {
                 nextTopicContainer.classList.remove('hidden');
                 nextTopicCard.innerHTML = '';
-                nextTopicCard.appendChild(createTopicCard(nextTopic, true));
+                nextTopicCard.appendChild(createTopicCard(pdfFiles[nextIncompleteIndex], true));
             } else {
                 nextTopicContainer.classList.add('hidden');
             }
@@ -706,7 +720,6 @@ Thank you for helping me prepare for my AP Statistics exam!`;
         
         // Make the topic functions available globally
         window.markTopicAsCompleted = markTopicAsCompleted;
-        window.markTopicAsStarted = markTopicAsStarted;
     </script>
     
     <!-- React Component -->
