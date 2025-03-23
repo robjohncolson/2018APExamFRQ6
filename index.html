@@ -82,9 +82,9 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Left Column: Prompt and Instructions -->
                     <div class="bg-white rounded-lg shadow-md p-5">
-                        <h3 class="text-xl font-semibold mb-3 text-indigo-700">1. Get the Prompt</h3>
+                        <h3 class="text-xl font-semibold mb-3 text-blue-800">1. Get the Prompt</h3>
                         
-                        <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <div class="bg-blue-50 p-4 rounded-lg mb-4 border border-blue-200">
                             <pre id="grok-prompt" class="whitespace-pre-wrap text-sm"></pre>
                             <div class="flex mt-4 gap-3">
                                 <button id="copy-button" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md flex items-center">
@@ -93,7 +93,7 @@
                                     </svg>
                                     Copy Prompt
                                 </button>
-                                <a href="https://grok.com" target="_blank" class="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded-md flex items-center">
+                                <a href="https://grok.com" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md flex items-center">
                                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
                                         <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
@@ -103,13 +103,13 @@
                             </div>
                         </div>
                         
-                        <h3 class="text-xl font-semibold mb-3 text-indigo-700">Quick Start Guide</h3>
+                        <h3 class="text-xl font-semibold mb-3 text-yellow-800">2. Video Learning Guide</h3>
                         <ol class="space-y-3 list-decimal pl-6">
                             <li class="text-gray-700">
                                 <span class="font-medium text-gray-900">Copy the prompt</span> using the button above
                             </li>
                             <li class="text-gray-700">
-                                <span class="font-medium text-gray-900">Open Grok</span> by clicking the purple button or visiting <a href="https://grok.com" target="_blank" class="text-blue-600 hover:underline">grok.com</a>
+                                <span class="font-medium text-gray-900">Open Grok</span> by clicking the button or visiting <a href="https://grok.com" target="_blank" class="text-blue-600 hover:underline">grok.com</a>
                             </li>
                             <li class="text-gray-700">
                                 <span class="font-medium text-gray-900">Start a new conversation</span> and paste the prompt
@@ -142,13 +142,13 @@
                     <div>
                         <!-- Current Topic Box -->
                         <div class="bg-white rounded-lg shadow-md p-5 mb-6">
-                            <h3 class="text-xl font-semibold mb-3 text-indigo-700" id="current-topic-header">2. Get Your Current Topic Materials</h3>
+                            <h3 class="text-xl font-semibold mb-3 text-green-800" id="current-topic-header">3. Practice with Current Topic</h3>
                             <div id="current-topic-info" class="mb-4">
                                 <!-- Populated by JavaScript -->
                                 <p class="text-gray-500">Loading current topic information...</p>
                             </div>
                             
-                            <button id="complete-current-topic-btn" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md flex items-center justify-center">
+                            <button id="complete-current-topic-btn" class="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded-md flex items-center justify-center">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                 </svg>
@@ -158,7 +158,7 @@
                         
                         <!-- All Topics Quick Access -->
                         <div class="bg-white rounded-lg shadow-md p-5">
-                            <h3 class="text-xl font-semibold mb-3 text-indigo-700 grok-prompt-topics-header">Quick Access to All Topics</h3>
+                            <h3 class="text-xl font-semibold mb-3 text-purple-800 grok-prompt-topics-header">4. Track Your Progress</h3>
                             <div id="quick-access-topics" class="grid grid-cols-2 gap-3">
                                 <!-- Populated by JavaScript -->
                                 <p class="text-gray-500 col-span-2">Loading topics...</p>
@@ -174,25 +174,25 @@
                 <p class="mb-4">Select a topic to study. Download both PDFs and attach them to your Grok conversation.</p>
                 
                 <!-- New call-to-action for Grok Prompt tab -->
-                <div class="mb-6 p-4 bg-indigo-50 border border-indigo-200 rounded-lg flex items-center justify-between">
+                <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between">
                     <div>
-                        <h3 class="font-bold text-indigo-700 mb-1">Try our improved Grok Prompt tab!</h3>
-                        <p class="text-indigo-600 text-sm">We've updated the Grok Prompt tab with all these features in one place for a more streamlined experience.</p>
+                        <h3 class="font-bold text-blue-800 mb-1">Try our improved Grok Prompt tab!</h3>
+                        <p class="text-blue-700 text-sm">We've updated the Grok Prompt tab with all these features in one place for a more streamlined experience.</p>
                     </div>
-                    <button onclick="document.getElementById('tab-grok-prompt').click()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 whitespace-nowrap">
+                    <button onclick="document.getElementById('tab-grok-prompt').click()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 whitespace-nowrap">
                         Go to Grok Prompt
                     </button>
                 </div>
                 
                 <div class="mb-4">
                     <div class="flex items-center mb-2">
-                        <label for="topic-select" class="mr-2 font-medium">Track your progress:</label>
+                        <label for="topic-select" class="mr-2 font-medium text-purple-800">Track your progress:</label>
                         <select id="topic-select" class="p-2 border rounded-md">
                             <option value="">Select a topic...</option>
                         </select>
                     </div>
                     <div id="progress-container" class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
-                        <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                        <div id="progress-bar" class="bg-purple-600 h-2.5 rounded-full" style="width: 0%"></div>
                     </div>
                 </div>
                 
@@ -200,7 +200,7 @@
                 <div id="all-completed-container" class="hidden mb-6 p-6 bg-green-50 border border-green-200 rounded-lg text-center">
                     <h3 class="text-xl font-bold text-green-700 mb-2">🎉 Congratulations! 🎉</h3>
                     <p class="text-green-700 mb-4">You've completed all AP Statistics topics including the capstone AP Exam FRQ 6!</p>
-                    <button id="reset-progress-btn" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                    <button id="reset-progress-btn" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
                         Reset Progress
                     </button>
                 </div>
@@ -209,9 +209,9 @@
                     <!-- Topic cards will be dynamically inserted here -->
                 </div>
                 
-                <div id="next-topic-container" class="mt-6 p-4 bg-blue-50 rounded-lg hidden">
-                    <h3 class="font-bold text-lg mb-2">Ready for the next topic?</h3>
-                    <p class="mb-2">Great job completing the current topic! Here's what to study next:</p>
+                <div id="next-topic-container" class="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-lg hidden">
+                    <h3 class="font-bold text-lg mb-2 text-purple-800">Ready for the next topic?</h3>
+                    <p class="mb-2 text-purple-700">Great job completing the current topic! Here's what to study next:</p>
                     <div id="next-topic-card" class="p-4 bg-white rounded-lg shadow-md"></div>
                 </div>
             </div>
@@ -422,7 +422,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             if (topic.completed) {
                 cardClasses += 'bg-green-50 border border-green-200';
             } else if (isCapstone) {
-                cardClasses += 'bg-yellow-50 border border-yellow-200';
+                cardClasses += 'bg-red-50 border border-red-200';
             } else if (isNextTopic || topic.current) {
                 cardClasses += 'bg-blue-50 border border-blue-200';
             } else {
@@ -439,7 +439,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             } else if (isNextTopic || topic.current) {
                 statusIcon = '<span class="text-blue-500 mr-2">→</span>';
             } else if (isCapstone) {
-                statusIcon = '<span class="text-yellow-500 mr-2">🏆</span>';
+                statusIcon = '<span class="text-red-500 mr-2">🏆</span>';
             } else {
                 statusIcon = '<span class="text-gray-300 mr-2">○</span>';
             }
@@ -448,7 +448,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             let badgeClass = topic.completed 
                 ? 'bg-green-100 text-green-800' 
                 : isCapstone 
-                  ? 'bg-yellow-100 text-yellow-800'
+                  ? 'bg-red-100 text-red-800'
                   : isNextTopic || topic.current
                   ? 'bg-blue-100 text-blue-800'
                   : 'bg-gray-100 text-gray-800';
@@ -483,7 +483,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                         Download Answers PDF (for Grok)
                     </a>
                     ${topic.videoUrl ? `
-                    <a href="${topic.videoUrl}" target="_blank" class="flex items-center text-purple-600 hover:text-purple-800">
+                    <a href="${topic.videoUrl}" target="_blank" class="flex items-center text-yellow-600 hover:text-yellow-800">
                         <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
                         </svg>
@@ -491,7 +491,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                     </a>
                     ` : ''}
                     ${topic.videoUrl2 ? `
-                    <a href="${topic.videoUrl2}" target="_blank" class="flex items-center text-purple-600 hover:text-purple-800">
+                    <a href="${topic.videoUrl2}" target="_blank" class="flex items-center text-yellow-600 hover:text-yellow-800">
                         <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
                         </svg>
@@ -508,14 +508,14 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                     ` : ''}
                     ${!topic.completed ? `
                     <button 
-                        class="mt-2 px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+                        class="mt-2 px-3 py-1 text-sm bg-purple-500 text-white rounded hover:bg-purple-600"
                         onclick="markTopicAsCompleted('${topic.id}')"
                     >
                         Mark as Completed
                     </button>
                     ` : ''}
                     ${isCapstone && !topic.completed ? `
-                    <div class="mt-2 p-2 bg-yellow-100 text-yellow-800 text-sm rounded">
+                    <div class="mt-2 p-2 bg-red-100 text-red-800 text-sm rounded">
                         <strong>Capstone Challenge!</strong> Complete all previous topics before attempting this final challenge.
                     </div>
                     ` : ''}
@@ -560,9 +560,8 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             }
             
             .capstone-highlight {
-                box-shadow: 0 0 15px rgba(217, 4, 41, 0.5);
-                transform: scale(1.02);
-                transition: all 0.3s ease;
+                border: 2px solid #ef4444 !important;
+                box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.2), 0 2px 4px -1px rgba(239, 68, 68, 0.1) !important;
             }
         `;
         document.head.appendChild(style);
@@ -1071,7 +1070,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 if (currentTopic.completed) {
                     statusBadge = '<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Completed</span>';
                 } else if (currentTopic.isCapstone) {
-                    statusBadge = '<span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Capstone Challenge</span>';
+                    statusBadge = '<span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Capstone Challenge</span>';
                 } else {
                     statusBadge = '<span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Current Focus</span>';
                 }
@@ -1096,7 +1095,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                             Download Answers PDF
                         </a>
                         ${currentTopic.videoUrl ? `
-                        <a href="${currentTopic.videoUrl}" target="_blank" class="flex items-center text-purple-600 hover:text-purple-800 bg-white p-2 rounded border border-purple-200 hover:bg-purple-50">
+                        <a href="${currentTopic.videoUrl}" target="_blank" class="flex items-center text-yellow-600 hover:text-yellow-800 bg-white p-2 rounded border border-yellow-200 hover:bg-yellow-50">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
                             </svg>
@@ -1104,7 +1103,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                         </a>
                         ` : ''}
                         ${currentTopic.videoUrl2 ? `
-                        <a href="${currentTopic.videoUrl2}" target="_blank" class="flex items-center text-purple-600 hover:text-purple-800 bg-white p-2 rounded border border-purple-200 hover:bg-purple-50">
+                        <a href="${currentTopic.videoUrl2}" target="_blank" class="flex items-center text-yellow-600 hover:text-yellow-800 bg-white p-2 rounded border border-yellow-200 hover:bg-yellow-50">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
                             </svg>
@@ -1123,7 +1122,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 // Enable or disable button based on topic status
                 if (currentTopic.completed) {
                     completeButton.classList.add('bg-gray-400');
-                    completeButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+                    completeButton.classList.remove('bg-purple-500', 'hover:bg-purple-600');
                     completeButton.disabled = true;
                     completeButton.innerHTML = `
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -1132,7 +1131,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                         Topic Already Completed
                     `;
                 } else {
-                    completeButton.classList.add('bg-green-500', 'hover:bg-green-600');
+                    completeButton.classList.add('bg-purple-500', 'hover:bg-purple-600');
                     completeButton.classList.remove('bg-gray-400');
                     completeButton.disabled = false;
                     completeButton.innerHTML = `
@@ -1184,11 +1183,11 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 const capstoneTopic = pdfFiles.find(topic => topic.isCapstone);
                 if (capstoneTopic) {
                     const capstoneCard = document.createElement('div');
-                    capstoneCard.className = 'col-span-2 p-4 rounded-lg shadow-md bg-yellow-50 border border-yellow-200 capstone-highlight';
+                    capstoneCard.className = 'col-span-2 p-4 rounded-lg shadow-md bg-red-50 border border-red-200 capstone-highlight';
                     
                     capstoneCard.innerHTML = `
                         <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-lg"><span class="text-yellow-500 mr-1">🏆</span>${capstoneTopic.name}</h4>
+                            <h4 class="font-bold text-lg"><span class="text-red-500 mr-1">🏆</span>${capstoneTopic.name}</h4>
                             <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Completed</span>
                         </div>
                         <p class="text-gray-700 mb-3">${capstoneTopic.description}</p>
@@ -1222,7 +1221,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 if (allCompleted && topic.isCapstone) return;
                 
                 const card = document.createElement('div');
-                card.className = `p-3 rounded-lg shadow-sm border ${topic.completed ? 'bg-green-50 border-green-200' : topic.isCapstone ? 'bg-yellow-50 border-yellow-200' : topic.current ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-200'} cursor-pointer hover:shadow-md transition-shadow`;
+                card.className = `p-3 rounded-lg shadow-sm border ${topic.completed ? 'bg-green-50 border-green-200' : topic.isCapstone ? 'bg-red-50 border-red-200' : topic.current ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-200'} cursor-pointer hover:shadow-md transition-shadow`;
                 
                 let statusIcon = '';
                 if (topic.completed) {
@@ -1230,7 +1229,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 } else if (topic.current) {
                     statusIcon = '<span class="text-blue-500 mr-1">→</span>';
                 } else if (topic.isCapstone) {
-                    statusIcon = '<span class="text-yellow-500 mr-1">🏆</span>';
+                    statusIcon = '<span class="text-red-500 mr-1">🏆</span>';
                 }
                 
                 card.innerHTML = `
@@ -1238,8 +1237,8 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                     <div class="flex flex-col gap-1 text-xs">
                         <a href="${topic.questionPdf}" target="_blank" download class="text-blue-600 hover:text-blue-800">Questions PDF</a>
                         <a href="${topic.answersPdf}" target="_blank" download class="text-blue-600 hover:text-blue-800">Answers PDF</a>
-                        ${topic.videoUrl ? `<a href="${topic.videoUrl}" target="_blank" class="text-purple-600 hover:text-purple-800">Video${topic.videoUrl2 ? ' 1' : ''}</a>` : ''}
-                        ${topic.videoUrl2 ? `<a href="${topic.videoUrl2}" target="_blank" class="text-purple-600 hover:text-purple-800">Video 2</a>` : ''}
+                        ${topic.videoUrl ? `<a href="${topic.videoUrl}" target="_blank" class="text-yellow-600 hover:text-yellow-800">Video${topic.videoUrl2 ? ' 1' : ''}</a>` : ''}
+                        ${topic.videoUrl2 ? `<a href="${topic.videoUrl2}" target="_blank" class="text-yellow-600 hover:text-yellow-800">Video 2</a>` : ''}
                     </div>
                 `;
                 
@@ -1293,37 +1292,43 @@ Thank you for helping me prepare for my AP Statistics exam!`;
               title: "1. Set Up",
               icon: "📝",
               content: "Gather all your materials before starting your AP Statistics learning session",
-              tips: ["Find a quiet place to focus", "Make sure your laptop is charged", "Have your calculator and formula sheet ready"]
+              tips: ["Find a quiet place to focus", "Make sure your laptop is charged", "Have your calculator and formula sheet ready"],
+              color: "blue" // Setup color
             },
             {
               title: "2. Prepare Grok",
               icon: "🤖",
               content: "Open Grok, set up the AI tutor, and download the corresponding PDFs from Study Materials",
-              tips: ["Copy the provided AP Statistics tutor prompt", "Attach both question and answer PDFs to your Grok conversation"]
+              tips: ["Copy the provided AP Statistics tutor prompt", "Attach both question and answer PDFs to your Grok conversation"],
+              color: "blue" // Setup color
             },
             {
               title: "3. Watch Video",
               icon: "📺",
               content: "Actively watch the video lesson for your current topic",
-              tips: ["Take notes on paper", "Work through every example shown", "Videos are linked in the Study Materials tab"]
+              tips: ["Take notes on paper", "Work through every example shown", "Videos are linked in the Study Materials tab"],
+              color: "yellow" // Video learning color
             },
             {
               title: "4. Ask Questions",
               icon: "❓",
               content: "If you get confused during the video, pause and ask Grok for help",
-              tips: ["Be specific about what confused you", "Return to the video once you understand"]
+              tips: ["Be specific about what confused you", "Return to the video once you understand"],
+              color: "yellow" // Video learning color
             },
             {
               title: "5. Practice Problems",
               icon: "🧩",
               content: "After the video, use Grok to work through the practice problems",
-              tips: ["Grok will guide you through all questions", "Use the answer PDF to verify your work"]
+              tips: ["Grok will guide you through all questions", "Use the answer PDF to verify your work"],
+              color: "green" // Practice color
             },
             {
               title: "6. Track Progress",
               icon: "✅",
               content: "Mark the topic as completed once you've mastered it",
-              tips: ["The next topic will automatically become your focus", "Complete all topics before attempting the capstone challenge"]
+              tips: ["The next topic will automatically become your focus", "Complete all topics before attempting the capstone challenge"],
+              color: "purple" // Progress color
             }
           ];
           
@@ -1334,6 +1339,24 @@ Thank you for helping me prepare for my AP Statistics exam!`;
           const handleNext = () => {
             setCurrentStep(prev => Math.min(steps.length - 1, prev + 1));
           };
+          
+          // Get color classes based on step color
+          const getColorClasses = (stepColor) => {
+            switch(stepColor) {
+              case 'blue':
+                return { bg: 'bg-blue-100', text: 'text-blue-800', active: 'text-blue-600', button: 'bg-blue-500 hover:bg-blue-600' };
+              case 'yellow':
+                return { bg: 'bg-yellow-100', text: 'text-yellow-800', active: 'text-yellow-600', button: 'bg-yellow-500 hover:bg-yellow-600' };
+              case 'green':
+                return { bg: 'bg-green-100', text: 'text-green-800', active: 'text-green-600', button: 'bg-green-500 hover:bg-green-600' };
+              case 'purple':
+                return { bg: 'bg-purple-100', text: 'text-purple-800', active: 'text-purple-600', button: 'bg-purple-500 hover:bg-purple-600' };
+              case 'red':
+                return { bg: 'bg-red-100', text: 'text-red-800', active: 'text-red-600', button: 'bg-red-500 hover:bg-red-600' };
+              default:
+                return { bg: 'bg-gray-100', text: 'text-gray-800', active: 'text-gray-600', button: 'bg-gray-500 hover:bg-gray-600' };
+            }
+          };
 
           return (
             <div className="flex flex-col bg-gray-50 p-4 rounded-lg max-w-4xl mx-auto">
@@ -1341,18 +1364,21 @@ Thank you for helping me prepare for my AP Statistics exam!`;
               
               {/* Progress Tracker */}
               <div className="flex flex-wrap justify-between mb-8">
-                {steps.map((step, idx) => (
-                  <div 
-                    key={idx} 
-                    className={`flex flex-col items-center cursor-pointer mb-2 ${idx <= currentStep ? 'text-blue-600' : 'text-gray-400'}`}
-                    onClick={() => setCurrentStep(idx)}
-                  >
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl mb-2 ${idx <= currentStep ? 'bg-blue-100' : 'bg-gray-200'}`}>
-                      {step.icon}
+                {steps.map((step, idx) => {
+                  const colorClasses = getColorClasses(step.color);
+                  return (
+                    <div 
+                      key={idx} 
+                      className={`flex flex-col items-center cursor-pointer mb-2 ${idx <= currentStep ? colorClasses.active : 'text-gray-400'}`}
+                      onClick={() => setCurrentStep(idx)}
+                    >
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl mb-2 ${idx <= currentStep ? colorClasses.bg : 'bg-gray-200'}`}>
+                        {step.icon}
+                      </div>
+                      <div className="text-xs font-medium text-center w-20">{step.title}</div>
                     </div>
-                    <div className="text-xs font-medium text-center w-20">{step.title}</div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               
               {/* Step Content */}
