@@ -835,20 +835,20 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             {
               title: "1. Set Up",
               icon: "📝",
-              content: "Grab your materials: pencil, paper, calculator, formula sheet, laptop, and headphones (optional)",
-              tips: ["Find a quiet place to focus", "Make sure your laptop is charged"]
+              content: "Gather all your materials before starting your AP Statistics learning session",
+              tips: ["Find a quiet place to focus", "Make sure your laptop is charged", "Have your calculator and formula sheet ready"]
             },
             {
               title: "2. Prepare Grok",
               icon: "🤖",
-              content: "Open Grok and set up the AI tutor for your specific video",
-              tips: ["Copy the provided AP Statistics tutor prompt", "Start a new conversation in Grok"]
+              content: "Open Grok, set up the AI tutor, and download the corresponding PDFs from Study Materials",
+              tips: ["Copy the provided AP Statistics tutor prompt", "Attach both question and answer PDFs to your Grok conversation"]
             },
             {
               title: "3. Watch Video",
               icon: "📺",
-              content: "Actively watch the video (starting with the lowest topic number)",
-              tips: ["Take notes on paper", "Work through every example shown"]
+              content: "Actively watch the video lesson for your current topic",
+              tips: ["Take notes on paper", "Work through every example shown", "Videos are linked in the Study Materials tab"]
             },
             {
               title: "4. Ask Questions",
@@ -860,7 +860,13 @@ Thank you for helping me prepare for my AP Statistics exam!`;
               title: "5. Practice Problems",
               icon: "🧩",
               content: "After the video, use Grok to work through the practice problems",
-              tips: ["Start with multiple choice", "Let Grok guide you through free response questions"]
+              tips: ["Grok will guide you through all questions", "Use the answer PDF to verify your work"]
+            },
+            {
+              title: "6. Track Progress",
+              icon: "✅",
+              content: "Mark the topic as completed once you've mastered it",
+              tips: ["The next topic will automatically become your focus", "Complete all topics before attempting the capstone challenge"]
             }
           ];
           
@@ -877,11 +883,11 @@ Thank you for helping me prepare for my AP Statistics exam!`;
               <h1 className="text-2xl font-bold text-center mb-6">AP Statistics: Using Grok to Help You Learn</h1>
               
               {/* Progress Tracker */}
-              <div className="flex justify-between mb-8">
+              <div className="flex flex-wrap justify-between mb-8">
                 {steps.map((step, idx) => (
                   <div 
                     key={idx} 
-                    className={`flex flex-col items-center cursor-pointer ${idx <= currentStep ? 'text-blue-600' : 'text-gray-400'}`}
+                    className={`flex flex-col items-center cursor-pointer mb-2 ${idx <= currentStep ? 'text-blue-600' : 'text-gray-400'}`}
                     onClick={() => setCurrentStep(idx)}
                   >
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl mb-2 ${idx <= currentStep ? 'bg-blue-100' : 'bg-gray-200'}`}>
@@ -910,7 +916,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
               {/* Materials List (visible on all screens) */}
               <div className="bg-white p-4 rounded-lg shadow-md mb-6">
                 <h3 className="font-bold mb-2">Materials Needed:</h3>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   <div className="flex items-center"><span className="mr-2">📄</span> Paper</div>
                   <div className="flex items-center"><span className="mr-2">✏️</span> Pencil</div>
                   <div className="flex items-center"><span className="mr-2">🧮</span> Calculator</div>
@@ -919,6 +925,12 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                   <div className="flex items-center"><span className="mr-2">📋</span> Clipboard</div>
                   <div className="flex items-center"><span className="mr-2">📑</span> AP Exam Formula Sheet</div>
                 </div>
+              </div>
+              
+              {/* Video Note */}
+              <div className="bg-yellow-50 p-4 rounded-lg shadow-md mb-6">
+                <h3 className="font-bold text-yellow-800 mb-2">About the Videos:</h3>
+                <p>Links to AP Classroom videos for each topic have been provided in Schoology during the time the material was presented. Google Drive copies of these videos are available through the links in Schoology.</p>
               </div>
               
               {/* Navigation Buttons */}
