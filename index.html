@@ -222,6 +222,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 description: "Binomial and Geometric Random Variables",
                 questionPdf: "4-8mcq.pdf",
                 answersPdf: "4-8mcqAnswers.pdf",
+                videoUrl: "https://apclassroom.collegeboard.org/d/qcoxl3r54z?sui=33,4",
                 completed: false
             },
             { 
@@ -230,6 +231,8 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 description: "Transforming and Combining Random Variables",
                 questionPdf: "4-9mcqfrq.pdf",
                 answersPdf: "4-9mcqfrqAnswers.pdf",
+                videoUrl: "https://apclassroom.collegeboard.org/d/fr03ec4ajm?sui=33,4",
+                videoUrl2: "https://apclassroom.collegeboard.org/d/eekak8j8le?sui=33,4",
                 completed: false
             },
             { 
@@ -238,6 +241,8 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 description: "Sampling Distributions for Means",
                 questionPdf: "5-5mcq.pdf",
                 answersPdf: "5-5mcqAnswers.pdf",
+                videoUrl: "https://apclassroom.collegeboard.org/d/n68xwj4nrz?sui=33,5",
+                videoUrl2: "https://apclassroom.collegeboard.org/d/3hds9p8qlq?sui=33,5",
                 completed: false
             },
             { 
@@ -246,6 +251,8 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 description: "Central Limit Theorem",
                 questionPdf: "5-6mcqfrq.pdf",
                 answersPdf: "5-6mcqfrqAnswers.pdf",
+                videoUrl: "https://apclassroom.collegeboard.org/d/hl9fyvkpih?sui=33,5",
+                videoUrl2: "https://apclassroom.collegeboard.org/d/ik3wqrxnwg?sui=33,5",
                 completed: false
             },
             { 
@@ -254,6 +261,8 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 description: "Confidence Intervals for Proportions",
                 questionPdf: "6-4mcq.pdf",
                 answersPdf: "6-4mcqAnswers.pdf",
+                videoUrl: "https://apclassroom.collegeboard.org/d/pde094fkxp?sui=33,6",
+                videoUrl2: "https://apclassroom.collegeboard.org/d/mg1k959s5t?sui=33,6",
                 completed: false
             },
             { 
@@ -262,6 +271,8 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 description: "Confidence Intervals for Means",
                 questionPdf: "6-5mcq.pdf",
                 answersPdf: "6-5mcqAnswers.pdf",
+                videoUrl: "https://apclassroom.collegeboard.org/d/xkvphnx7qu?sui=33,6",
+                videoUrl2: "https://apclassroom.collegeboard.org/d/crg48hjihw?sui=33,6",
                 completed: false
             },
             { 
@@ -270,6 +281,8 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 description: "Selecting an Appropriate Inference Procedure",
                 questionPdf: "6-10mcq.pdf",
                 answersPdf: "6-10mcqAnswers.pdf",
+                videoUrl: "https://apclassroom.collegeboard.org/d/ycy5l5nclj?sui=33,6",
+                videoUrl2: "https://apclassroom.collegeboard.org/d/etzlkyzo8u?sui=33,6",
                 completed: false
             },
             {
@@ -355,6 +368,22 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                         </svg>
                         Download Answers PDF (for Grok)
                     </a>
+                    ${topic.videoUrl ? `
+                    <a href="${topic.videoUrl}" target="_blank" class="flex items-center text-purple-600 hover:text-purple-800">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
+                        </svg>
+                        Watch Topic Video ${topic.videoUrl2 ? '1' : ''}
+                    </a>
+                    ` : ''}
+                    ${topic.videoUrl2 ? `
+                    <a href="${topic.videoUrl2}" target="_blank" class="flex items-center text-purple-600 hover:text-purple-800">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
+                        </svg>
+                        Watch Topic Video 2
+                    </a>
+                    ` : ''}
                     ${isNextTopic || topic.current ? `
                     <div class="mt-2 p-2 bg-blue-100 text-blue-800 text-sm rounded flex items-center">
                         <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -630,7 +659,9 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             const progress = pdfFiles.map(topic => ({
                 id: topic.id,
                 completed: topic.completed,
-                current: topic.current
+                current: topic.current,
+                videoUrl: topic.videoUrl,
+                videoUrl2: topic.videoUrl2
             }));
             
             localStorage.setItem('apStatsTopicProgress', JSON.stringify(progress));
@@ -649,6 +680,14 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                     if (topic) {
                         topic.completed = savedTopic.completed;
                         topic.current = savedTopic.current;
+                        
+                        // Preserve video URLs if they exist
+                        if (savedTopic.videoUrl) {
+                            topic.videoUrl = savedTopic.videoUrl;
+                        }
+                        if (savedTopic.videoUrl2) {
+                            topic.videoUrl2 = savedTopic.videoUrl2;
+                        }
                     }
                 });
             }
