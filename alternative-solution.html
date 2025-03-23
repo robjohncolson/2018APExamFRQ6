@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AP Statistics Learning Resources</title>
+    <title>AP Statistics Learning Resources (Alternative)</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,8 +15,8 @@
     <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
-    <!-- Mermaid JS -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <!-- Mermaid JS - Using specific version -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js"></script>
     
     <style>
         .tab-content {
@@ -34,6 +34,12 @@
             background-color: #f0f9ff;
             border-bottom: 2px solid #3b82f6;
             font-weight: bold;
+        }
+        /* Pre-styling the flowchart container */
+        #flowchart-container {
+            width: 100%;
+            min-height: 400px;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -62,7 +68,7 @@
             <div id="content-flowchart" class="tab-content">
                 <h2 class="text-xl font-bold mb-4">AP Statistics Learning Session Flowchart</h2>
                 <div class="bg-gray-50 p-4 rounded-lg">
-                    <div class="mermaid" id="flowchart"></div>
+                    <div id="flowchart-container"></div>
                 </div>
             </div>
             
@@ -137,49 +143,59 @@ Throughout the Session:
 - Session Summary: At the end, summarize key concepts and suggest areas for additional practice.
 
 Thank you for helping me prepare for my AP Statistics exam!`;
-        
-        // Initialize Mermaid
-        mermaid.initialize({ 
-            startOnLoad: false, 
-            theme: 'default',
-            securityLevel: 'loose'
-        });
-        
-        // Function to render the flowchart
+
+        // Function to render the flowchart with SVG
         function renderFlowchart() {
-            document.getElementById('flowchart').innerHTML = flowchartDefinition;
-            try {
-                mermaid.parse(flowchartDefinition);
-                mermaid.init(undefined, document.querySelector('.mermaid'));
-            } catch (e) {
-                console.error('Mermaid parsing error:', e);
-            }
+            const container = document.getElementById('flowchart-container');
+            container.innerHTML = '';
+            
+            // Create pre element with class mermaid
+            const pre = document.createElement('pre');
+            pre.className = 'mermaid';
+            pre.textContent = flowchartDefinition;
+            container.appendChild(pre);
+            
+            // Process all mermaid blocks
+            mermaid.init(undefined, '.mermaid');
         }
         
-        // Document ready function
+        // Initialize mermaid
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Mermaid with configuration
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'default',
+                securityLevel: 'loose',
+                logLevel: 5,
+                flowchart: { 
+                    useMaxWidth: true, 
+                    htmlLabels: true,
+                    curve: 'linear'
+                }
+            });
+            
             // Set Grok prompt content
             document.getElementById('grok-prompt').textContent = grokPrompt;
             
             // Tab Switching Logic
             document.querySelectorAll('.tab-button').forEach(button => {
-                button.addEventListener('click', () => {
+                button.addEventListener('click', function() {
                     // Update active tab button
                     document.querySelectorAll('.tab-button').forEach(btn => {
                         btn.classList.remove('active');
                     });
-                    button.classList.add('active');
+                    this.classList.add('active');
                     
                     // Update active content
-                    const contentId = button.id.replace('tab-', 'content-');
+                    const contentId = this.id.replace('tab-', 'content-');
                     document.querySelectorAll('.tab-content').forEach(content => {
                         content.classList.remove('active');
                     });
                     document.getElementById(contentId).classList.add('active');
                     
-                    // Render mermaid chart if flowchart tab
-                    if (button.id === 'tab-flowchart') {
-                        renderFlowchart();
+                    // Render flowchart if flowchart tab is selected
+                    if (this.id === 'tab-flowchart') {
+                        setTimeout(renderFlowchart, 0);
                     }
                 });
             });
@@ -197,11 +213,6 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                     }, 2000);
                 });
             });
-            
-            // Auto-render flowchart if that tab is initially selected
-            if (document.getElementById('tab-flowchart').classList.contains('active')) {
-                renderFlowchart();
-            }
         });
     </script>
     
