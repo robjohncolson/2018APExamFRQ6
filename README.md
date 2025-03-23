@@ -8,6 +8,7 @@ This repository contains a simple web application designed to help AP Statistics
 - **Learning Process Flowchart**: Visual representation of the learning workflow
 - **Grok AI Tutor Prompt**: Ready-to-use prompt for setting up Grok AI as your AP Statistics tutor
 - **Study Materials Tracker**: Organized access to topic-specific PDFs with progress tracking
+- **Capstone Challenge**: Final AP Exam FRQ 6 acts as the ultimate challenge once all other topics are completed
 
 ## Live Demo
 
@@ -33,6 +34,21 @@ The Study Materials tab helps you work through AP Statistics topics in a structu
 5. Mark the topic as completed when finished
 6. The site will suggest the next topic to study
 7. Your progress is saved automatically in your browser
+8. After completing all regular topics, tackle the capstone AP Exam FRQ 6 challenge
+9. Once all topics including the capstone are completed, you can reset your progress to start again
+
+## Learning Path
+
+The topics are designed to be completed in sequential order:
+
+1. Topic 4-8: Binomial and Geometric Random Variables
+2. Topic 4-9: Transforming and Combining Random Variables
+3. Topic 5-5: Sampling Distributions for Means
+4. Topic 5-6: Central Limit Theorem
+5. Topic 6-4: Confidence Intervals for Proportions
+6. Topic 6-5: Confidence Intervals for Means
+7. Topic 6-10: Selecting an Appropriate Inference Procedure
+8. **CAPSTONE**: 2018 AP Exam Free Response Question 6
 
 ## Embedding in Schoology
 

@@ -94,6 +94,15 @@
                     </div>
                 </div>
                 
+                <!-- All Topics Completed Message -->
+                <div id="all-completed-container" class="hidden mb-6 p-6 bg-green-50 border border-green-200 rounded-lg text-center">
+                    <h3 class="text-xl font-bold text-green-700 mb-2">🎉 Congratulations! 🎉</h3>
+                    <p class="text-green-700 mb-4">You've completed all AP Statistics topics including the capstone AP Exam FRQ 6!</p>
+                    <button id="reset-progress-btn" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                        Reset Progress
+                    </button>
+                </div>
+                
                 <div id="topic-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Topic cards will be dynamically inserted here -->
                 </div>
@@ -262,26 +271,66 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 questionPdf: "6-10mcq.pdf",
                 answersPdf: "6-10mcqAnswers.pdf",
                 completed: false
+            },
+            {
+                id: "exam-frq6",
+                name: "AP Exam FRQ 6",
+                description: "CAPSTONE: 2018 AP Exam Free Response Question 6",
+                questionPdf: "2018APExamFRQ6-Question.pdf",
+                answersPdf: "2018APExamFRQ6-Answer.pdf",
+                isCapstone: true,
+                completed: false
             }
         ];
         
         // Function to create a topic card
         function createTopicCard(topic, isNextTopic = false) {
             const card = document.createElement('div');
-            card.className = `p-4 rounded-lg shadow-md ${topic.completed ? 'bg-green-50 border border-green-200' : 'bg-white'}`;
+            
+            // Special styling for capstone topic
+            const isCapstone = topic.isCapstone === true;
+            
+            // Different styling based on topic type and completion status
+            let cardClasses = 'p-4 rounded-lg shadow-md topic-card ';
+            if (topic.completed) {
+                cardClasses += 'bg-green-50 border border-green-200';
+            } else if (isCapstone) {
+                cardClasses += 'bg-yellow-50 border border-yellow-200';
+            } else {
+                cardClasses += 'bg-white';
+            }
+            
+            card.className = cardClasses;
             card.id = `topic-card-${topic.id}`;
             
-            const statusIcon = topic.completed 
-                ? '<span class="text-green-500 mr-2">✓</span>' 
-                : isNextTopic 
-                  ? '<span class="text-blue-500 mr-2">→</span>' 
-                  : '';
+            // Status icon varies by completion and type
+            let statusIcon = '';
+            if (topic.completed) {
+                statusIcon = '<span class="text-green-500 mr-2">✓</span>';
+            } else if (isNextTopic) {
+                statusIcon = '<span class="text-blue-500 mr-2">→</span>';
+            } else if (isCapstone) {
+                statusIcon = '<span class="text-yellow-500 mr-2">🏆</span>';
+            }
+            
+            // Status badge text and style
+            let badgeClass = topic.completed 
+                ? 'bg-green-100 text-green-800' 
+                : isCapstone 
+                  ? 'bg-yellow-100 text-yellow-800' 
+                  : 'bg-blue-100 text-blue-800';
+            
+            let badgeText = topic.completed 
+                ? 'Completed' 
+                : isCapstone 
+                  ? 'Capstone' 
+                  : 'Not Started';
             
             card.innerHTML = `
                 <div class="flex justify-between items-start mb-3">
                     <h3 class="font-bold text-lg">${statusIcon}${topic.name}</h3>
-                    <span class="px-2 py-1 text-xs rounded-full ${topic.completed ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}">
-                        ${topic.completed ? 'Completed' : 'Not Started'}
+                    <span class="px-2 py-1 text-xs rounded-full ${badgeClass}">
+                        ${badgeText}
                     </span>
                 </div>
                 <p class="text-gray-700 mb-3">${topic.description}</p>
@@ -315,10 +364,122 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                         Mark as Completed
                     </button>
                     ` : ''}
+                    ${isCapstone && !topic.completed ? `
+                    <div class="mt-2 p-2 bg-yellow-100 text-yellow-800 text-xs rounded">
+                        Complete all previous topics before attempting this capstone challenge!
+                    </div>
+                    ` : ''}
                 </div>
             `;
             
             return card;
+        }
+        
+        // Add styling for the pulse animation and completed state
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+                70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+            }
+            
+            .pulse-animation {
+                animation: pulse 1s ease-in-out 2;
+            }
+            
+            .completed-state {
+                opacity: 0.8;
+                position: relative;
+            }
+            
+            .completed-state::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.05);
+                pointer-events: none;
+                z-index: 1;
+            }
+            
+            .completed-state .topic-card:not(.capstone-completed) {
+                filter: grayscale(50%);
+            }
+            
+            .capstone-completed {
+                transform: scale(1.02);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+                z-index: 2;
+                position: relative;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Function to check if all topics are completed
+        function checkAllTopicsCompleted() {
+            const allCompleted = pdfFiles.every(topic => topic.completed);
+            const completedContainer = document.getElementById('all-completed-container');
+            const topicCardsContainer = document.getElementById('topic-cards-container');
+            const studyMaterialsTab = document.getElementById('content-study-materials');
+            
+            if (allCompleted) {
+                // Show completion message
+                completedContainer.classList.remove('hidden');
+                
+                // Hide the next topic container
+                document.getElementById('next-topic-container').classList.add('hidden');
+                
+                // Add completed state styling to the cards container
+                topicCardsContainer.classList.add('completed-state');
+                
+                // Find the capstone topic card and highlight it
+                const capstoneCard = document.getElementById(`topic-card-exam-frq6`);
+                if (capstoneCard) {
+                    capstoneCard.classList.add('capstone-completed');
+                }
+                
+                // Add a subtle completion state to the entire tab
+                studyMaterialsTab.classList.add('bg-green-50');
+            } else {
+                // Hide completion message
+                completedContainer.classList.add('hidden');
+                
+                // Remove completed state styling
+                topicCardsContainer.classList.remove('completed-state');
+                studyMaterialsTab.classList.remove('bg-green-50');
+                
+                // Remove capstone highlight
+                const capstoneCard = document.getElementById(`topic-card-exam-frq6`);
+                if (capstoneCard) {
+                    capstoneCard.classList.remove('capstone-completed');
+                }
+            }
+            
+            return allCompleted;
+        }
+        
+        // Function to reset all progress
+        function resetProgress() {
+            // Confirm reset
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                // Reset all topics to not completed
+                pdfFiles.forEach(topic => {
+                    topic.completed = false;
+                    topic.current = false;
+                });
+                
+                // Save to local storage
+                saveTopicProgress();
+                
+                // Refresh the UI
+                populateTopicCards();
+                
+                // Hide completion message
+                document.getElementById('all-completed-container').classList.add('hidden');
+            }
         }
         
         // Function to populate the topic cards
@@ -334,6 +495,7 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             updateNextTopic();
             updateProgressBar();
             populateTopicSelect();
+            checkAllTopicsCompleted();
         }
         
         // Function to populate the topic select dropdown
@@ -406,8 +568,22 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             const nextTopicContainer = document.getElementById('next-topic-container');
             const nextTopicCard = document.getElementById('next-topic-card');
             
-            // Find the first incomplete topic
-            const nextTopic = pdfFiles.find(topic => !topic.completed);
+            // Check if all topics are completed
+            if (checkAllTopicsCompleted()) {
+                nextTopicContainer.classList.add('hidden');
+                return;
+            }
+            
+            // Get all non-capstone topics first
+            const regularTopics = pdfFiles.filter(topic => !topic.isCapstone);
+            
+            // Find the first incomplete regular topic
+            let nextTopic = regularTopics.find(topic => !topic.completed);
+            
+            // If all regular topics are completed, suggest the capstone
+            if (!nextTopic) {
+                nextTopic = pdfFiles.find(topic => topic.isCapstone && !topic.completed);
+            }
             
             if (nextTopic) {
                 nextTopicContainer.classList.remove('hidden');
@@ -464,21 +640,6 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             }
         }
         
-        // Add styling for the pulse animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
-                70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-                100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-            }
-            
-            .pulse-animation {
-                animation: pulse 1s ease-in-out 2;
-            }
-        `;
-        document.head.appendChild(style);
-        
         // Document ready function
         document.addEventListener('DOMContentLoaded', function() {
             // Set Grok prompt content
@@ -527,6 +688,9 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                     }, 2000);
                 });
             });
+            
+            // Reset progress button functionality
+            document.getElementById('reset-progress-btn').addEventListener('click', resetProgress);
             
             // Auto-render flowchart if that tab is initially selected
             if (document.getElementById('tab-flowchart').classList.contains('active')) {
