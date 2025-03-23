@@ -623,15 +623,28 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                 // Save to local storage
                 saveTopicProgress();
                 
-                // Refresh the UI
-                populateTopicCards();
+                // Reset section headers
+                const currentTopicHeader = document.getElementById('current-topic-header');
+                if (currentTopicHeader) {
+                    currentTopicHeader.textContent = '2. Get Your Current Topic Materials';
+                }
                 
-                // Hide completion message
+                const topicsHeader = document.querySelector('.grok-prompt-topics-header');
+                if (topicsHeader) {
+                    topicsHeader.textContent = 'Quick Access to All Topics';
+                }
+                
+                // Refresh the UI for both tabs
+                populateTopicCards(); // For study materials tab
+                updateCurrentTopicInfo(); // For grok prompt tab
+                populateQuickAccessTopics(); // For grok prompt tab
+                
+                // Hide completion message in study materials tab
                 document.getElementById('all-completed-container').classList.add('hidden');
                 
-                // Scroll to the first topic
+                // Scroll to the first topic if on study materials tab
                 const firstCard = document.getElementById(`topic-card-${pdfFiles[0].id}`);
-                if (firstCard) {
+                if (firstCard && document.getElementById('content-study-materials').classList.contains('active')) {
                     firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             }
@@ -1041,8 +1054,11 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                     const newButton = completeButton.cloneNode(true);
                     completeButton.parentNode.replaceChild(newButton, completeButton);
                     
-                    // Add click event listener for reset
-                    newButton.addEventListener('click', resetProgress);
+                    // Add click event listener for reset with callback to refresh the UI
+                    newButton.addEventListener('click', function() {
+                        // Just call resetProgress once, which now handles all UI updates
+                        resetProgress();
+                    });
                 }
                 
                 return;
