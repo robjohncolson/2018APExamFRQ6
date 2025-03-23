@@ -691,16 +691,62 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             
             // Copy to clipboard functionality
             document.getElementById('copy-button').addEventListener('click', () => {
-                navigator.clipboard.writeText(grokPrompt).then(() => {
-                    const button = document.getElementById('copy-button');
-                    button.textContent = 'Copied!';
-                    button.classList.add('bg-green-500');
-                    
-                    setTimeout(() => {
-                        button.textContent = 'Copy to Clipboard';
-                        button.classList.remove('bg-green-500');
-                    }, 2000);
-                });
+                const promptText = document.getElementById('grok-prompt').textContent;
+                
+                // Use the Clipboard API with fallback methods
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    // Modern browsers
+                    navigator.clipboard.writeText(promptText)
+                        .then(() => {
+                            const button = document.getElementById('copy-button');
+                            button.textContent = 'Copied!';
+                            button.classList.add('bg-green-500');
+                            button.classList.remove('bg-blue-500');
+                            
+                            setTimeout(() => {
+                                button.textContent = 'Copy to Clipboard';
+                                button.classList.add('bg-blue-500');
+                                button.classList.remove('bg-green-500');
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy text: ', err);
+                            alert('Failed to copy to clipboard. Please select and copy the text manually.');
+                        });
+                } else {
+                    // Fallback for older browsers
+                    try {
+                        // Create a temporary textarea element
+                        const textarea = document.createElement('textarea');
+                        textarea.value = promptText;
+                        textarea.setAttribute('readonly', '');
+                        textarea.style.position = 'absolute';
+                        textarea.style.left = '-9999px';
+                        document.body.appendChild(textarea);
+                        
+                        // Select and copy the text
+                        textarea.select();
+                        document.execCommand('copy');
+                        
+                        // Remove the textarea
+                        document.body.removeChild(textarea);
+                        
+                        // Update button styles
+                        const button = document.getElementById('copy-button');
+                        button.textContent = 'Copied!';
+                        button.classList.add('bg-green-500');
+                        button.classList.remove('bg-blue-500');
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy to Clipboard';
+                            button.classList.add('bg-blue-500');
+                            button.classList.remove('bg-green-500');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                        alert('Failed to copy to clipboard. Please select and copy the text manually.');
+                    }
+                }
             });
             
             // Reset progress button functionality
