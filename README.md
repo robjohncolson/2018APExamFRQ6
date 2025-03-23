@@ -7,6 +7,7 @@ This repository contains a simple web application designed to help AP Statistics
 - **Learning Flow Guide**: Interactive step-by-step guide explaining how to use these resources
 - **Learning Process Flowchart**: Visual representation of the learning workflow
 - **Grok AI Tutor Prompt**: Ready-to-use prompt for setting up Grok AI as your AP Statistics tutor
+- **Study Materials Tracker**: Organized access to topic-specific PDFs with progress tracking
 
 ## Live Demo
 
@@ -19,6 +20,19 @@ The website is published via GitHub Pages at: [YOUR_GITHUB_USERNAME.github.io/RE
    - **Learning Flow**: Learn the step-by-step process
    - **Flowchart**: Visualize the learning workflow
    - **Grok Prompt**: Copy the AI tutor prompt to use with Grok
+   - **Study Materials**: Access topic PDFs in sequential order and track your progress
+
+### Using the Study Materials Feature
+
+The Study Materials tab helps you work through AP Statistics topics in a structured way:
+
+1. Select a topic from the list or use the dropdown menu
+2. Download both the questions and answers PDFs
+3. Upload these PDFs to your Grok conversation along with the Grok prompt
+4. Work through the problems with Grok's guidance
+5. Mark the topic as completed when finished
+6. The site will suggest the next topic to study
+7. Your progress is saved automatically in your browser
 
 ## Embedding in Schoology
 

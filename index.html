@@ -49,6 +49,7 @@
             <div id="tab-learning-flow" class="tab-button active">Learning Flow</div>
             <div id="tab-flowchart" class="tab-button">Flowchart</div>
             <div id="tab-grok-prompt" class="tab-button">Grok Prompt</div>
+            <div id="tab-study-materials" class="tab-button">Study Materials</div>
         </div>
         
         <!-- Tab Content -->
@@ -74,6 +75,34 @@
                     <pre id="grok-prompt" class="whitespace-pre-wrap text-sm"></pre>
                 </div>
                 <button id="copy-button" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Copy to Clipboard</button>
+            </div>
+            
+            <!-- Study Materials Tab -->
+            <div id="content-study-materials" class="tab-content">
+                <h2 class="text-xl font-bold mb-4">AP Statistics Study Materials</h2>
+                <p class="mb-4">Select a topic to study. Download both PDFs and attach them to your Grok conversation.</p>
+                
+                <div class="mb-4">
+                    <div class="flex items-center mb-2">
+                        <label for="topic-select" class="mr-2 font-medium">Track your progress:</label>
+                        <select id="topic-select" class="p-2 border rounded-md">
+                            <option value="">Select a topic...</option>
+                        </select>
+                    </div>
+                    <div id="progress-container" class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                        <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div id="topic-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Topic cards will be dynamically inserted here -->
+                </div>
+                
+                <div id="next-topic-container" class="mt-6 p-4 bg-blue-50 rounded-lg hidden">
+                    <h3 class="font-bold text-lg mb-2">Ready for the next topic?</h3>
+                    <p class="mb-2">Great job completing the current topic! Here's what to study next:</p>
+                    <div id="next-topic-card" class="p-4 bg-white rounded-lg shadow-md"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -174,6 +203,282 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             }
         }
         
+        // Study Materials and PDF Organization
+        
+        // Define the PDF files and organize them by topic
+        const pdfFiles = [
+            { 
+                id: "4-8", 
+                name: "Topic 4-8", 
+                description: "Binomial and Geometric Random Variables",
+                questionPdf: "4-8mcq.pdf",
+                answersPdf: "4-8mcqAnswers.pdf",
+                completed: false
+            },
+            { 
+                id: "4-9", 
+                name: "Topic 4-9", 
+                description: "Transforming and Combining Random Variables",
+                questionPdf: "4-9mcqfrq.pdf",
+                answersPdf: "4-9mcqfrqAnswers.pdf",
+                completed: false
+            },
+            { 
+                id: "5-5", 
+                name: "Topic 5-5", 
+                description: "Sampling Distributions for Means",
+                questionPdf: "5-5mcq.pdf",
+                answersPdf: "5-5mcqAnswers.pdf",
+                completed: false
+            },
+            { 
+                id: "5-6", 
+                name: "Topic 5-6", 
+                description: "Central Limit Theorem",
+                questionPdf: "5-6mcqfrq.pdf",
+                answersPdf: "5-6mcqfrqAnswers.pdf",
+                completed: false
+            },
+            { 
+                id: "6-4", 
+                name: "Topic 6-4", 
+                description: "Confidence Intervals for Proportions",
+                questionPdf: "6-4mcq.pdf",
+                answersPdf: "6-4mcqAnswers.pdf",
+                completed: false
+            },
+            { 
+                id: "6-5", 
+                name: "Topic 6-5", 
+                description: "Confidence Intervals for Means",
+                questionPdf: "6-5mcq.pdf",
+                answersPdf: "6-5mcqAnswers.pdf",
+                completed: false
+            },
+            { 
+                id: "6-10", 
+                name: "Topic 6-10", 
+                description: "Selecting an Appropriate Inference Procedure",
+                questionPdf: "6-10mcq.pdf",
+                answersPdf: "6-10mcqAnswers.pdf",
+                completed: false
+            }
+        ];
+        
+        // Function to create a topic card
+        function createTopicCard(topic, isNextTopic = false) {
+            const card = document.createElement('div');
+            card.className = `p-4 rounded-lg shadow-md ${topic.completed ? 'bg-green-50 border border-green-200' : 'bg-white'}`;
+            card.id = `topic-card-${topic.id}`;
+            
+            const statusIcon = topic.completed 
+                ? '<span class="text-green-500 mr-2">✓</span>' 
+                : isNextTopic 
+                  ? '<span class="text-blue-500 mr-2">→</span>' 
+                  : '';
+            
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-bold text-lg">${statusIcon}${topic.name}</h3>
+                    <span class="px-2 py-1 text-xs rounded-full ${topic.completed ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}">
+                        ${topic.completed ? 'Completed' : 'Not Started'}
+                    </span>
+                </div>
+                <p class="text-gray-700 mb-3">${topic.description}</p>
+                <div class="flex flex-col gap-2">
+                    <a href="${topic.questionPdf}" target="_blank" class="flex items-center text-blue-600 hover:text-blue-800">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        View Questions
+                    </a>
+                    <a href="${topic.answersPdf}" target="_blank" class="flex items-center text-blue-600 hover:text-blue-800">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        View Answers
+                    </a>
+                    ${isNextTopic ? `
+                    <button 
+                        class="mt-2 px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+                        onclick="markTopicAsStarted('${topic.id}')"
+                    >
+                        Start This Topic
+                    </button>
+                    ` : 
+                    !topic.completed ? `
+                    <button 
+                        class="mt-2 px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+                        onclick="markTopicAsCompleted('${topic.id}')"
+                    >
+                        Mark as Completed
+                    </button>
+                    ` : ''}
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Function to populate the topic cards
+        function populateTopicCards() {
+            const container = document.getElementById('topic-cards-container');
+            container.innerHTML = '';
+            
+            pdfFiles.forEach(topic => {
+                const card = createTopicCard(topic);
+                container.appendChild(card);
+            });
+            
+            updateNextTopic();
+            updateProgressBar();
+            populateTopicSelect();
+        }
+        
+        // Function to populate the topic select dropdown
+        function populateTopicSelect() {
+            const select = document.getElementById('topic-select');
+            select.innerHTML = '<option value="">Select a topic...</option>';
+            
+            pdfFiles.forEach(topic => {
+                const option = document.createElement('option');
+                option.value = topic.id;
+                option.textContent = topic.name;
+                select.appendChild(option);
+            });
+            
+            // Add event listener to handle selection
+            select.addEventListener('change', function() {
+                const selectedTopicId = this.value;
+                if (!selectedTopicId) return;
+                
+                // Scroll to the selected topic card
+                const card = document.getElementById(`topic-card-${selectedTopicId}`);
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.classList.add('pulse-animation');
+                    setTimeout(() => {
+                        card.classList.remove('pulse-animation');
+                    }, 2000);
+                }
+            });
+        }
+        
+        // Function to mark a topic as completed
+        function markTopicAsCompleted(topicId) {
+            const topic = pdfFiles.find(t => t.id === topicId);
+            if (topic) {
+                topic.completed = true;
+                
+                // Update local storage to persist completion status
+                saveTopicProgress();
+                
+                // Refresh the UI
+                populateTopicCards();
+            }
+        }
+        
+        // Function to mark a topic as started (for next topic suggestions)
+        function markTopicAsStarted(topicId) {
+            // Set all topics as not current
+            pdfFiles.forEach(t => {
+                if (t.id === topicId) {
+                    t.current = true;
+                } else {
+                    t.current = false;
+                }
+            });
+            
+            // Save and refresh UI
+            saveTopicProgress();
+            populateTopicCards();
+            
+            // Scroll to the topic card
+            const card = document.getElementById(`topic-card-${topicId}`);
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        
+        // Function to update the next topic section
+        function updateNextTopic() {
+            const nextTopicContainer = document.getElementById('next-topic-container');
+            const nextTopicCard = document.getElementById('next-topic-card');
+            
+            // Find the first incomplete topic
+            const nextTopic = pdfFiles.find(topic => !topic.completed);
+            
+            if (nextTopic) {
+                nextTopicContainer.classList.remove('hidden');
+                nextTopicCard.innerHTML = '';
+                nextTopicCard.appendChild(createTopicCard(nextTopic, true));
+            } else {
+                nextTopicContainer.classList.add('hidden');
+            }
+        }
+        
+        // Function to update the progress bar
+        function updateProgressBar() {
+            const completedCount = pdfFiles.filter(topic => topic.completed).length;
+            const totalCount = pdfFiles.length;
+            const progressPercentage = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
+            
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = `${progressPercentage}%`;
+            
+            // Add text to the progress bar if it's big enough
+            if (progressPercentage > 10) {
+                progressBar.textContent = `${Math.round(progressPercentage)}% Complete`;
+            } else {
+                progressBar.textContent = '';
+            }
+        }
+        
+        // Function to save topic progress to local storage
+        function saveTopicProgress() {
+            const progress = pdfFiles.map(topic => ({
+                id: topic.id,
+                completed: topic.completed,
+                current: topic.current
+            }));
+            
+            localStorage.setItem('apStatsTopicProgress', JSON.stringify(progress));
+        }
+        
+        // Function to load topic progress from local storage
+        function loadTopicProgress() {
+            const savedProgress = localStorage.getItem('apStatsTopicProgress');
+            
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                
+                // Update the pdfFiles array with saved progress
+                progress.forEach(savedTopic => {
+                    const topic = pdfFiles.find(t => t.id === savedTopic.id);
+                    if (topic) {
+                        topic.completed = savedTopic.completed;
+                        topic.current = savedTopic.current;
+                    }
+                });
+            }
+        }
+        
+        // Add styling for the pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+                70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+            }
+            
+            .pulse-animation {
+                animation: pulse 1s ease-in-out 2;
+            }
+        `;
+        document.head.appendChild(style);
+        
         // Document ready function
         document.addEventListener('DOMContentLoaded', function() {
             // Set Grok prompt content
@@ -200,6 +505,12 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                         // Small delay to ensure the tab content is visible before rendering
                         setTimeout(renderFlowchart, 50);
                     }
+                    
+                    // Initialize topic cards if study materials tab
+                    if (button.id === 'tab-study-materials') {
+                        loadTopicProgress();
+                        populateTopicCards();
+                    }
                 });
             });
             
@@ -221,7 +532,17 @@ Thank you for helping me prepare for my AP Statistics exam!`;
             if (document.getElementById('tab-flowchart').classList.contains('active')) {
                 renderFlowchart();
             }
+            
+            // Initialize study materials if that tab is initially selected
+            if (document.getElementById('tab-study-materials').classList.contains('active')) {
+                loadTopicProgress();
+                populateTopicCards();
+            }
         });
+        
+        // Make the topic functions available globally
+        window.markTopicAsCompleted = markTopicAsCompleted;
+        window.markTopicAsStarted = markTopicAsStarted;
     </script>
     
     <!-- React Component -->
