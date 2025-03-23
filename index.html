@@ -140,17 +140,35 @@ Thank you for helping me prepare for my AP Statistics exam!`;
         
         // Initialize Mermaid
         mermaid.initialize({ 
-            startOnLoad: false, 
+            startOnLoad: true, 
             theme: 'default',
-            securityLevel: 'loose'
+            securityLevel: 'loose',
+            logLevel: 5,
+            flowchart: { 
+                useMaxWidth: true, 
+                htmlLabels: true,
+                curve: 'basis'
+            }
         });
         
         // Function to render the flowchart
         function renderFlowchart() {
-            document.getElementById('flowchart').innerHTML = flowchartDefinition;
+            const container = document.getElementById('flowchart');
+            
+            // Remove all children and recreate the element
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+            
+            // Force re-parsing by creating and appending a new pre element
+            const pre = document.createElement('pre');
+            pre.className = 'mermaid';
+            pre.textContent = flowchartDefinition;
+            container.appendChild(pre);
+            
+            // Completely reinitialize mermaid for proper rendering
             try {
-                mermaid.parse(flowchartDefinition);
-                mermaid.init(undefined, document.querySelector('.mermaid'));
+                mermaid.contentLoaded();
             } catch (e) {
                 console.error('Mermaid parsing error:', e);
             }
@@ -177,9 +195,10 @@ Thank you for helping me prepare for my AP Statistics exam!`;
                     });
                     document.getElementById(contentId).classList.add('active');
                     
-                    // Render mermaid chart if flowchart tab
+                    // Always render mermaid chart if flowchart tab, whether it was previously active or not
                     if (button.id === 'tab-flowchart') {
-                        renderFlowchart();
+                        // Small delay to ensure the tab content is visible before rendering
+                        setTimeout(renderFlowchart, 50);
                     }
                 });
             });
